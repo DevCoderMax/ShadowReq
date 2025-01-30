@@ -1,50 +1,80 @@
-# 🕵️‍♂️ ShadowReq – Anonymous Requests with Server Rotation
+# ShadowReq
 
-**ShadowReq** is a Python library that allows you to send HTTP requests using random servers, ensuring greater anonymity and avoiding IP blocks. With support for dynamic proxies and automatic rotation, ShadowReq is perfect for web scraping, test automation, and distributed access to APIs.
+Uma biblioteca Python para fazer requisições HTTP através de servidores intermediários, mantendo cookies e headers atualizados automaticamente.
 
-## 🚀 Key Features:
-- ✔ **Automatic Server Rotation** – Randomly selects a server for each request.
-- ✔ **Load Balancing** – Distributes requests to avoid overloading a single server.
-- ✔ **Flexible Configuration** – Customize timeouts, headers, and more.
-- ✔ **Easy Integration** – Simple API, compatible with `requests` and `httpx`.
+## Características Implementadas
 
+- ✅ Suporte a métodos HTTP básicos (GET, POST, PUT, DELETE)
+- ✅ Configuração via arquivo JSON para múltiplos servidores
+- ✅ Atualização automática de cookies usando Selenium
+- ✅ Captura automática de User-Agent do navegador
+- ✅ Suporte a timeout nas requisições
 
-📦 **Installation:**  
+## Instalação
+
 ```bash
-pip install shadowreq
+pip install -r requirements.txt
 ```
 
+## Uso Básico
 
-## 📌 Tasks to be done
+```python
+from ShadowReq import ShadowReq
 
-### 🏗️ Core Development
-- [ ] Implement API in PHP to receive and forward requests
-- [ ] Ensure the PHP server handles requests securely and efficiently
-- [ ] Implement automatic server rotation logic in PHP
-- [ ] Add support for multiple proxy providers
-- [ ] Implement load balancing mechanism
-- [ ] Allow custom headers, timeouts, and retries
-- [ ] Implement logging and debugging options
+# Criar instância com timeout personalizado
+shadow = ShadowReq(timeout=(5, 30))  # 5s conexão, 30s leitura
 
+# Fazer requisição GET
+response = shadow.get('https://api.example.com/data')
 
+# Fazer requisição POST com dados
+data = {'name': 'John Doe', 'email': 'john@example.com'}
+response = shadow.post('https://api.example.com/users', data=data)
 
-### 🧪 Testing & Optimization
-- [ ] Write unit tests for core functionalities
-- [ ] Perform stress tests to evaluate performance
-- [ ] Optimize response time and resource utilization
-- [ ] Handle potential proxy failures gracefully
+# Verificar resposta
+if response.status_code == 200:
+    print(response.text)
+```
 
-### 📖 Documentation
-- [ ] Write installation guide
-- [ ] Provide usage examples and code snippets
-- [ ] Create API reference documentation
+## Atualização de Cookies
 
-### 📦 Deployment
-- [ ] Deploy PHP API to a stable server
-- [ ] Set up automated deployment workflow
-- [ ] Monitor usage and gather feedback
+Para atualizar os cookies dos servidores:
 
-### 🎯 Future Enhancements
-- [ ] Implement AI-based proxy selection
-- [ ] Add support for rotating user agents
-- [ ] Explore decentralized proxy networks
+```python
+python autogetcookie.py
+```
+
+O script irá:
+1. Acessar cada servidor configurado em `servers.json`
+2. Capturar o cookie `__test` e User-Agent
+3. Atualizar automaticamente o arquivo de configuração
+
+## Próximas Tarefas
+
+1. **Melhorias de Funcionalidade**
+   - [ ] Adicionar suporte a proxy
+   - [ ] Implementar sistema de retry em caso de falha
+   - [ ] Adicionar suporte a sessões (similar ao requests.Session)
+   - [ ] Suporte a upload de arquivos
+   - [ ] Adicionar opção de compressão gzip/deflate
+
+2. **Melhorias de Segurança**
+   - [ ] Implementar verificação SSL configurável
+   - [ ] Adicionar suporte a autenticação HTTP
+   - [ ] Proteção contra CSRF
+
+3. **Melhorias de Usabilidade**
+   - [ ] Adicionar logs detalhados
+   - [ ] Criar decoradores para retry e cache
+   - [ ] Melhorar tratamento de erros
+   - [ ] Adicionar suporte a async/await
+
+4. **Documentação**
+   - [ ] Adicionar exemplos mais complexos
+   - [ ] Documentar todas as opções de configuração
+   - [ ] Criar guia de contribuição
+   - [ ] Adicionar testes unitários
+
+## Contribuição
+
+Contribuições são bem-vindas! Por favor, sinta-se à vontade para submeter um Pull Request.
