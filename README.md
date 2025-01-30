@@ -9,111 +9,108 @@ Uma biblioteca Python para fazer requisições HTTP através de servidores inter
 - ✅ Atualização automática de cookies usando Selenium
 - ✅ Captura automática de User-Agent do navegador
 - ✅ Suporte a timeout nas requisições
+- ✅ Interface de linha de comando (CLI)
 
 ## Instalação
 
 ```bash
+# Criar e ativar ambiente virtual (opcional)
+python -m venv .venv
+source .venv/bin/activate
+
+# Instalar dependências e o pacote
 pip install -r requirements.txt
+pip install -e .
 ```
 
-## Uso Básico
+## Uso da Biblioteca
 
 ```python
-from ShadowReq import ShadowReq
+from shadowreq import ShadowReq
 
 # Criar instância com timeout personalizado
 shadow = ShadowReq(timeout=(5, 30))  # 5s conexão, 30s leitura
 
 # Fazer requisição GET
-response = shadow.get('https://api.example.com/data')
+response = shadow.get('https://httpbin.org/get')
+print(f"Status: {response.status_code}")
+print(response.text)
 
 # Fazer requisição POST com dados
 data = {'name': 'John Doe', 'email': 'john@example.com'}
-response = shadow.post('https://api.example.com/users', data=data)
-
-# Verificar resposta
-if response.status_code == 200:
-    print(response.text)
+response = shadow.post('https://httpbin.org/post', data=data)
+print(f"Status: {response.status_code}")
+print(response.text)
 ```
 
-## Atualização de Cookies
+## Uso do CLI
 
-Para atualizar os cookies dos servidores:
+O ShadowReq inclui uma interface de linha de comando para tarefas comuns:
 
-```python
-python autogetcookie.py
+```bash
+# Ver comandos disponíveis
+shadowreq --help
+
+# Atualizar cookies dos servidores
+shadowreq update-cookies
+
+# Usar arquivo de configuração específico
+shadowreq update-cookies --config outro_arquivo.json
 ```
 
-O script irá:
-1. Acessar cada servidor configurado em `servers.json`
-2. Capturar o cookie `__test` e User-Agent
-3. Atualizar automaticamente o arquivo de configuração
+## Estrutura do Projeto
+
+```
+ShadowReq/
+├── README.md
+├── VERSION               # Versão atual do pacote
+├── requirements.txt      # Dependências do projeto
+├── server/
+│   └── api.php          # Servidor intermediário
+├── servers.json         # Configuração dos servidores
+├── setup.py             # Configuração do pacote
+├── shadowreq/
+│   ├── __init__.py      # Exporta a classe principal
+│   ├── version.py       # Versão da biblioteca
+│   ├── client.py        # Implementação principal
+│   ├── cookie_updater.py # Atualização de cookies
+│   └── cli.py           # Interface de linha de comando
+└── test.py              # Testes básicos
+```
 
 ## Próximas Tarefas
 
 1. **Melhorias no Servidor PHP**
-   - [ ] Adicionar suporte a headers customizados na requisição
-   - [ ] Implementar cache de respostas no servidor
-   - [ ] Adicionar compressão gzip/deflate nas respostas
+   - [ ] Implementar cache de respostas
+   - [ ] Adicionar compressão gzip/deflate
    - [ ] Melhorar tratamento de erros e logging
-   - [ ] Implementar rate limiting por IP
-   - [ ] Adicionar suporte a streaming de dados
-   - [ ] Implementar validação de origem das requisições
+   - [ ] Implementar rate limiting
+   - [ ] Adicionar suporte a streaming
 
-2. **Melhorias no ShadowReq**
+2. **Melhorias no Cliente**
    - [ ] Adicionar suporte a proxy
-   - [ ] Implementar sistema de retry em caso de falha
-   - [ ] Adicionar suporte a sessões (similar ao requests.Session)
-   - [ ] Suporte a upload de arquivos
-   - [ ] Implementar cache local de respostas
-   - [ ] Adicionar suporte a websockets
-   - [ ] Criar sistema de eventos e callbacks
-   - [ ] Implementar download de arquivos com progresso
+   - [ ] Implementar sistema de retry
+   - [ ] Adicionar suporte a sessões
+   - [ ] Suporte a upload/download de arquivos
+   - [ ] Implementar cache local
 
-3. **Melhorias no Gerenciamento de Servidores**
-   - [ ] Adicionar suporte a múltiplos servidores com fallback
-   - [ ] Implementar health check dos servidores
-   - [ ] Sistema de balanceamento de carga simples
-   - [ ] Rotação automática de servidores em caso de erro
-   - [ ] Interface de administração web simples
-   - [ ] Monitoramento de uso e estatísticas
-   - [ ] Sistema de blacklist/whitelist de URLs
-
-4. **Melhorias de Segurança**
+3. **Segurança**
    - [ ] Implementar verificação SSL configurável
    - [ ] Adicionar suporte a autenticação HTTP
    - [ ] Proteção contra CSRF
-   - [ ] Sanitização de URLs e parâmetros
-   - [ ] Sistema de tokens para autenticação entre cliente e servidor
-   - [ ] Limitar tipos de conteúdo permitidos
-   - [ ] Implementar timeouts no servidor PHP
+   - [ ] Sistema de tokens entre cliente e servidor
 
-5. **Melhorias na Automação**
-   - [ ] Criar script de instalação automática do servidor
-   - [ ] Implementar atualização automática de configurações
-   - [ ] Sistema de backup de cookies e configurações
-   - [ ] Agendamento de atualizações de cookies
-   - [ ] Notificações de erros via email/webhook
-   - [ ] Interface CLI para gerenciamento
-   - [ ] Integração com Docker para fácil deployment
-
-6. **Melhorias de Usabilidade**
+4. **Usabilidade**
    - [ ] Adicionar logs detalhados
    - [ ] Criar decoradores para retry e cache
-   - [ ] Melhorar tratamento de erros
    - [ ] Adicionar suporte a async/await
-   - [ ] Criar sistema de plugins
-   - [ ] Implementar modo debug com informações detalhadas
-   - [ ] Adicionar suporte a diferentes formatos de configuração (YAML, ENV)
+   - [ ] Implementar modo debug
 
-7. **Documentação**
+5. **Documentação**
    - [ ] Adicionar exemplos mais complexos
-   - [ ] Documentar todas as opções de configuração
-   - [ ] Criar guia de contribuição
+   - [ ] Documentar todas as opções
+   - [ ] Criar guia de troubleshooting
    - [ ] Adicionar testes unitários
-   - [ ] Documentar processo de instalação do servidor
-   - [ ] Criar troubleshooting guide
-   - [ ] Adicionar diagramas de arquitetura
 
 ## Contribuição
 

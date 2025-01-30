@@ -1,25 +1,42 @@
-from ShadowReq import ShadowReq
+#!/usr/bin/env python3
+"""
+Testes básicos do ShadowReq
+"""
 
-# Criar uma instância do ShadowReq
-shadow = ShadowReq()
+from shadowreq import ShadowReq
 
-# Fazer uma requisição GET para um endpoint de teste
-response = shadow.get('https://httpbin.org/get')
+def test_get_request():
+    """Testa uma requisição GET básica."""
+    shadow = ShadowReq()
+    
+    # Teste com httpbin
+    response = shadow.get('https://httpbin.org/get')
+    print(f"Status: {response.status_code}")
+    print(f"Response: {response.text}")
 
-# Verificar a resposta
-if response.status_code == 200:
-    print("Resposta GET recebida com sucesso!")
-    print(response.text)
-else:
-    print(f"Erro na requisição GET: {response.status_code}")
+def test_post_request():
+    """Testa uma requisição POST com dados."""
+    shadow = ShadowReq()
+    
+    # Dados de exemplo
+    data = {
+        'name': 'John Doe',
+        'email': 'john@example.com',
+        'message': 'Hello World!'
+    }
+    
+    # Teste com httpbin
+    response = shadow.post('https://httpbin.org/post', data=data)
+    print(f"Status: {response.status_code}")
+    print(f"Response: {response.text}")
 
-# Exemplo de POST com dados
-data = {
-    "name": "John Doe",
-    "email": "john@example.com"
-}
-response = shadow.post('https://httpbin.org/post', data=data)
+def main():
+    """Função principal para executar os testes."""
+    print("Testando GET request...")
+    test_get_request()
+    
+    print("\nTestando POST request...")
+    test_post_request()
 
-print("\nResposta do POST:")
-print(f"Status: {response.status_code}")
-print(f"Conteúdo: {response.text}")
+if __name__ == '__main__':
+    main()
