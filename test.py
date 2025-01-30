@@ -1,42 +1,27 @@
 #!/usr/bin/env python3
 """
-Testes básicos do ShadowReq
+Testes básicos do ShadowReq usando API de IP
 """
 
 from shadowreq import ShadowReq
+import time
 
-def test_get_request():
-    """Testa uma requisição GET básica."""
-    shadow = ShadowReq()
+def test_multiple_requests():
+    """Testa múltiplas requisições para mostrar o rodízio de servidores."""
+    shadow = ShadowReq(enable_logging=True)
     
-    # Teste com httpbin
-    response = shadow.get('https://httpbin.org/get')
-    print(f"Status: {response.status_code}")
-    print(f"Response: {response.text}")
-
-def test_post_request():
-    """Testa uma requisição POST com dados."""
-    shadow = ShadowReq()
-    
-    # Dados de exemplo
-    data = {
-        'name': 'John Doe',
-        'email': 'john@example.com',
-        'message': 'Hello World!'
-    }
-    
-    # Teste com httpbin
-    response = shadow.post('https://httpbin.org/post', data=data)
-    print(f"Status: {response.status_code}")
-    print(f"Response: {response.text}")
+    # Fazer várias requisições para ver o rodízio
+    for i in range(5):
+        print(f"\nRequisição {i+1}:")
+        response = shadow.get('http://ip-api.com/json/')
+        print(f"Status: {response.status_code}")
+        print(f"IP Info: {response.text}")
+        time.sleep(1)  # Esperar 1 segundo entre requisições
 
 def main():
     """Função principal para executar os testes."""
-    print("Testando GET request...")
-    test_get_request()
-    
-    print("\nTestando POST request...")
-    test_post_request()
+    print("Testando rodízio de servidores...")
+    test_multiple_requests()
 
 if __name__ == '__main__':
     main()
