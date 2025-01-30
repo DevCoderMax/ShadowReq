@@ -51,29 +51,69 @@ O script irá:
 
 ## Próximas Tarefas
 
-1. **Melhorias de Funcionalidade**
+1. **Melhorias no Servidor PHP**
+   - [ ] Adicionar suporte a headers customizados na requisição
+   - [ ] Implementar cache de respostas no servidor
+   - [ ] Adicionar compressão gzip/deflate nas respostas
+   - [ ] Melhorar tratamento de erros e logging
+   - [ ] Implementar rate limiting por IP
+   - [ ] Adicionar suporte a streaming de dados
+   - [ ] Implementar validação de origem das requisições
+
+2. **Melhorias no ShadowReq**
    - [ ] Adicionar suporte a proxy
    - [ ] Implementar sistema de retry em caso de falha
    - [ ] Adicionar suporte a sessões (similar ao requests.Session)
    - [ ] Suporte a upload de arquivos
-   - [ ] Adicionar opção de compressão gzip/deflate
+   - [ ] Implementar cache local de respostas
+   - [ ] Adicionar suporte a websockets
+   - [ ] Criar sistema de eventos e callbacks
+   - [ ] Implementar download de arquivos com progresso
 
-2. **Melhorias de Segurança**
+3. **Melhorias no Gerenciamento de Servidores**
+   - [ ] Adicionar suporte a múltiplos servidores com fallback
+   - [ ] Implementar health check dos servidores
+   - [ ] Sistema de balanceamento de carga simples
+   - [ ] Rotação automática de servidores em caso de erro
+   - [ ] Interface de administração web simples
+   - [ ] Monitoramento de uso e estatísticas
+   - [ ] Sistema de blacklist/whitelist de URLs
+
+4. **Melhorias de Segurança**
    - [ ] Implementar verificação SSL configurável
    - [ ] Adicionar suporte a autenticação HTTP
    - [ ] Proteção contra CSRF
+   - [ ] Sanitização de URLs e parâmetros
+   - [ ] Sistema de tokens para autenticação entre cliente e servidor
+   - [ ] Limitar tipos de conteúdo permitidos
+   - [ ] Implementar timeouts no servidor PHP
 
-3. **Melhorias de Usabilidade**
+5. **Melhorias na Automação**
+   - [ ] Criar script de instalação automática do servidor
+   - [ ] Implementar atualização automática de configurações
+   - [ ] Sistema de backup de cookies e configurações
+   - [ ] Agendamento de atualizações de cookies
+   - [ ] Notificações de erros via email/webhook
+   - [ ] Interface CLI para gerenciamento
+   - [ ] Integração com Docker para fácil deployment
+
+6. **Melhorias de Usabilidade**
    - [ ] Adicionar logs detalhados
    - [ ] Criar decoradores para retry e cache
    - [ ] Melhorar tratamento de erros
    - [ ] Adicionar suporte a async/await
+   - [ ] Criar sistema de plugins
+   - [ ] Implementar modo debug com informações detalhadas
+   - [ ] Adicionar suporte a diferentes formatos de configuração (YAML, ENV)
 
-4. **Documentação**
+7. **Documentação**
    - [ ] Adicionar exemplos mais complexos
    - [ ] Documentar todas as opções de configuração
    - [ ] Criar guia de contribuição
    - [ ] Adicionar testes unitários
+   - [ ] Documentar processo de instalação do servidor
+   - [ ] Criar troubleshooting guide
+   - [ ] Adicionar diagramas de arquitetura
 
 ## Contribuição
 
