@@ -21,6 +21,9 @@ source .venv/bin/activate
 # Instalar dependências e o pacote
 pip install -r requirements.txt
 pip install -e .
+
+# Instalar Biblioteca
+pip install git+https://github.com/DevCoderMax/ShadowReq.git
 ```
 
 ## Uso da Biblioteca
