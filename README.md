@@ -8,7 +8,7 @@
 - ✔ **Flexible Configuration** – Customize timeouts, headers, and more.
 - ✔ **Easy Integration** – Simple API, compatible with `requests` and `httpx`.
 
-🔗 **GitHub:** *[add your link here]*  
+
 📦 **Installation:**  
 ```bash
 pip install shadowreq
