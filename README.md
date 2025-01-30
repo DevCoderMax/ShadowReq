@@ -10,6 +10,8 @@ Uma biblioteca Python para fazer requisições HTTP através de servidores inter
 - ✅ Captura automática de User-Agent do navegador
 - ✅ Suporte a timeout nas requisições
 - ✅ Interface de linha de comando (CLI)
+- ✅ Sistema de logs configurável
+- ✅ Rodízio automático de servidores
 
 ## Instalação
 
@@ -30,6 +32,13 @@ pip install git+https://github.com/DevCoderMax/ShadowReq.git
 
 ```python
 from shadowreq import ShadowReq
+
+# Criar instância básica
+shadow = ShadowReq()
+
+# Criar instância com logging ativado
+shadow = ShadowReq(enable_logging=True)  # Usa arquivo padrão: shadowreq_DATA.log
+shadow = ShadowReq(enable_logging=True, log_file='meu_log.log')  # Arquivo específico
 
 # Criar instância com timeout personalizado
 shadow = ShadowReq(timeout=(5, 30))  # 5s conexão, 30s leitura
@@ -54,12 +63,34 @@ O ShadowReq inclui uma interface de linha de comando para tarefas comuns:
 # Ver comandos disponíveis
 shadowreq --help
 
-# Atualizar cookies dos servidores
+# Atualizar cookies dos servidores (sem logging)
 shadowreq update-cookies
 
-# Usar arquivo de configuração específico
-shadowreq update-cookies --config outro_arquivo.json
+# Atualizar cookies com logging ativado
+shadowreq update-cookies --enable-logging
+
+# Usar arquivo de configuração específico com logging em arquivo personalizado
+shadowreq update-cookies --config outro_arquivo.json --enable-logging --log-file meu_log.log
 ```
+
+## Sistema de Logs
+
+O ShadowReq inclui um sistema de logs configurável que pode ser ativado tanto na biblioteca quanto no CLI:
+
+### Informações Registradas
+- Rodízio de servidores
+- Status das requisições
+- Erros e avisos
+- Informações de debug
+- Atualizações de cookies
+- Operações do servidor intermediário
+
+### Configuração
+- Desativado por padrão para não gerar arquivos desnecessários
+- Pode ser ativado via parâmetro `enable_logging`
+- Arquivo de log padrão: `shadowreq_DATA.log`
+- Suporta arquivo de log personalizado
+- Formato: `data - nome - nível - mensagem`
 
 ## Estrutura do Projeto
 
@@ -77,6 +108,7 @@ ShadowReq/
 │   ├── version.py       # Versão da biblioteca
 │   ├── client.py        # Implementação principal
 │   ├── cookie_updater.py # Atualização de cookies
+│   ├── logger.py        # Sistema de logs
 │   └── cli.py           # Interface de linha de comando
 └── test.py              # Testes básicos
 ```
@@ -104,7 +136,7 @@ ShadowReq/
    - [ ] Sistema de tokens entre cliente e servidor
 
 4. **Usabilidade**
-   - [ ] Adicionar logs detalhados
+   - [x] Adicionar logs detalhados
    - [ ] Criar decoradores para retry e cache
    - [ ] Adicionar suporte a async/await
    - [ ] Implementar modo debug
